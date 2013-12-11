@@ -82,5 +82,26 @@ describe('wildcards(emitter, pattern, fn)', function(){
 
       calls.should.eql([ [ 'user:tobi:signup', 'loki' ] ]);
     })
+
+    it('should match across segments', function(){
+      var e = new Emitter;
+      var calls = [];
+
+      wildcards(e, 'user:*', function(){
+        calls.push([].slice.call(arguments));
+      });
+
+      e.emit('foo');
+      e.emit('bar', 1);
+      e.emit('baz', 1, 2);
+      e.emit('user.login', 'tobi');
+      e.emit('user:tobi:signup', 'loki');
+      e.emit('user:tobi:login', 'loki');
+
+      calls.should.eql([
+        [ 'user:tobi:signup', 'loki' ],
+        [ 'user:tobi:login', 'loki' ]
+      ]);
+    })
   })
 })
