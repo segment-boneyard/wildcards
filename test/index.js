@@ -47,20 +47,40 @@ describe('wildcards(emitter, fn)', function(){
 })
 
 describe('wildcards(emitter, pattern, fn)', function(){
-  it('should subscribe using a pattern', function(){
-    var e = new Emitter;
-    var calls = [];
+  describe('*', function(){
+    it('should subscribe using a pattern', function(){
+      var e = new Emitter;
+      var calls = [];
 
-    wildcards(e, 'user.*', function(){
-      calls.push([].slice.call(arguments));
-    });
+      wildcards(e, 'user.*', function(){
+        calls.push([].slice.call(arguments));
+      });
 
-    e.emit('foo');
-    e.emit('bar', 1);
-    e.emit('baz', 1, 2);
-    e.emit('user.login', 'tobi');
-    e.emit('user.signup', 'loki');
+      e.emit('foo');
+      e.emit('bar', 1);
+      e.emit('baz', 1, 2);
+      e.emit('user.login', 'tobi');
+      e.emit('user.signup', 'loki');
 
-    calls.should.eql([ [ 'user.login', 'tobi' ], [ 'user.signup', 'loki' ] ]);
+      calls.should.eql([ [ 'user.login', 'tobi' ], [ 'user.signup', 'loki' ] ]);
+    })
+
+    it('should work with postfix segments', function(){
+      var e = new Emitter;
+      var calls = [];
+
+      wildcards(e, 'user:*:signup', function(){
+        calls.push([].slice.call(arguments));
+      });
+
+      e.emit('foo');
+      e.emit('bar', 1);
+      e.emit('baz', 1, 2);
+      e.emit('user.login', 'tobi');
+      e.emit('user:tobi:signup', 'loki');
+      e.emit('user.foo.bar.baz', 'loki');
+
+      calls.should.eql([ [ 'user:tobi:signup', 'loki' ] ]);
+    })
   })
 })
