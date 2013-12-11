@@ -1,6 +1,6 @@
 {
   "name": "wildcards",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "repository": "segmentio/wildcards",
   "description": "emitter wildcard support",
   "keywords": [
