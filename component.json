@@ -9,10 +9,12 @@
     "wildcard"
   ],
   "dependencies": {
-    "escape-regexp": "0.0.1"
+    "component/escape-regexp": "1.0.2"
   },
-  "devDependencies": {
-    "mocha": "*"
+  "development": {
+    "ianstormtaylor/assert": "add/node",
+    "component/emitter": "*"
   },
+  "scripts": ["index.js"],
   "license": "MIT"
 }

@@ -1,6 +1,13 @@
 
-var Emitter = require('events').EventEmitter;
-var wildcards = require('..');
+try {
+  var Emitter = require('events').EventEmitter;
+  var wildcards = require('..');
+  var assert = require('assert');
+} catch (e) {
+  var Emitter = require('emitter');
+  var wildcards = require('wildcards');
+  var assert = require('assert');
+}
 
 describe('wildcards(emitter, fn)', function(){
   it('should subscribe to all events', function(){
@@ -15,7 +22,7 @@ describe('wildcards(emitter, fn)', function(){
     e.emit('bar', 1);
     e.emit('baz', 1, 2);
 
-    calls.should.eql([ [ 'foo' ], [ 'bar', 1 ], [ 'baz', 1, 2 ]]);
+    assert.deepEqual(calls, [ [ 'foo' ], [ 'bar', 1 ], [ 'baz', 1, 2 ]]);
   })
 
   it('should not break .on()', function(){
@@ -42,7 +49,7 @@ describe('wildcards(emitter, fn)', function(){
     e.emit('bar', 1);
     e.emit('baz', 1, 2);
 
-    calls.should.eql([[], [1], [1,2]]);
+    assert.deepEqual(calls, [[], [1], [1,2]]);
   })
 })
 
@@ -62,7 +69,7 @@ describe('wildcards(emitter, pattern, fn)', function(){
       e.emit('user.login', 'tobi');
       e.emit('user.signup', 'loki');
 
-      calls.should.eql([ [ 'user.login', 'tobi' ], [ 'user.signup', 'loki' ] ]);
+      assert.deepEqual(calls, [ [ 'user.login', 'tobi' ], [ 'user.signup', 'loki' ] ]);
     })
 
     it('should work with postfix segments', function(){
@@ -80,7 +87,7 @@ describe('wildcards(emitter, pattern, fn)', function(){
       e.emit('user:tobi:signup', 'loki');
       e.emit('user.foo.bar.baz', 'loki');
 
-      calls.should.eql([ [ 'user:tobi:signup', 'loki' ] ]);
+      assert.deepEqual(calls, [ [ 'user:tobi:signup', 'loki' ] ]);
     })
 
     it('should match across segments', function(){
@@ -98,7 +105,7 @@ describe('wildcards(emitter, pattern, fn)', function(){
       e.emit('user:tobi:signup', 'loki');
       e.emit('user:tobi:login', 'loki');
 
-      calls.should.eql([
+      assert.deepEqual(calls, [
         [ 'user:tobi:signup', 'loki' ],
         [ 'user:tobi:login', 'loki' ]
       ]);
