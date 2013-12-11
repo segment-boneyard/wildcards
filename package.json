@@ -3,8 +3,14 @@
   "version": "0.0.1",
   "repository": "segmentio/wildcards",
   "description": "emitter wildcard support",
-  "keywords": ["events", "emitter", "wildcard"],
-  "dependencies": {},
+  "keywords": [
+    "events",
+    "emitter",
+    "wildcard"
+  ],
+  "dependencies": {
+    "escape-regexp": "0.0.1"
+  },
   "devDependencies": {
     "mocha": "*",
     "should": "*"

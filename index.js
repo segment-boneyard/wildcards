@@ -1,5 +1,11 @@
 
 /**
+ * Module dependencies.
+ */
+
+var escape = require('escape-regexp');
+
+/**
  * Expose `wildcards`.
  */
 
@@ -23,7 +29,8 @@ function wildcards(e, pattern, fn) {
   }
 
   // create regexp
-  pattern = pattern.replace(/\*/g, '(.*?)');
+  pattern = escape(pattern);
+  pattern = pattern.replace(/\\[*]/g, '(.*?)');
   var re = new RegExp('^' + pattern + '$');
 
   // proxy .emit()
