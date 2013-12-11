@@ -1,0 +1,13 @@
+{
+  "name": "wildcards",
+  "version": "0.0.1",
+  "repository": "segmentio/wildcards",
+  "description": "emitter wildcard support",
+  "keywords": ["events", "emitter", "wildcard"],
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*"
+  },
+  "license": "MIT"
+}
