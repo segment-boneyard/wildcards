@@ -1,4 +1,3 @@
-
 # wildcards
 
   Wildcard event-emitter proxy for nodejs.
@@ -7,6 +6,7 @@
 
 ```
 $ npm install wildcards
+$ component install segmentio/wildcards
 ```
 
 ## Example
