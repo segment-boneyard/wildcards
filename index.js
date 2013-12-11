@@ -36,8 +36,8 @@ function wildcards(e, pattern, fn) {
   // proxy .emit()
   var emit = e.emit;
   e.emit = function(event){
-    if (!re.test(event)) return;
     emit.apply(e, arguments);
+    if (!re.test(event)) return;
     fn.apply(null, arguments);
   };
 }
