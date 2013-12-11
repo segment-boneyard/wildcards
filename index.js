@@ -30,8 +30,7 @@ function wildcards(e, pattern, fn) {
   var emit = e.emit;
   e.emit = function(event){
     if (!re.test(event)) return;
-    var args = [].slice.call(arguments);
-    emit.apply(e, args.slice(1));
-    fn.apply(null, args);
+    emit.apply(e, arguments);
+    fn.apply(null, arguments);
   };
 }
