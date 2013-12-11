@@ -51,6 +51,24 @@ describe('wildcards(emitter, fn)', function(){
 
     assert.deepEqual(calls, [[], [1], [1,2]]);
   })
+
+  it('should not break .emit()', function(){
+    var e = new Emitter;
+    var calls = [];
+
+    wildcards(e, 'user.*', function(){
+      calls.push([].slice.call(arguments));
+    });
+
+    e.on('foo', function(){
+      calls.push([].slice.call(arguments));
+    });
+
+    e.emit('foo', 1);
+    e.emit('user.login', 'tobi');
+
+    assert.deepEqual(calls, [ [1], [ 'user.login', 'tobi' ] ]);
+  })
 })
 
 describe('wildcards(emitter, pattern, fn)', function(){
