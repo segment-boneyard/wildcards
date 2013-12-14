@@ -11,7 +11,7 @@ clean:
 node_modules: package.json
 	@npm install
 
-test: build
+test:
 	@./node_modules/.bin/mocha test/index.js \
 		--reporter dot \
 		--bail
