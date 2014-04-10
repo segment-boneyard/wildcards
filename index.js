@@ -39,5 +39,6 @@ function wildcards(e, pattern, fn) {
     emit.apply(e, arguments);
     if (!re.test(event)) return;
     fn.apply(null, arguments);
+    return e;
   };
 }
